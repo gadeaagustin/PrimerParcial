@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:backgroundTint="@color/colorBackground"
+    android:textColor="#FFFFFF"
+    tools:context=".main.BusquedaFragment">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fitsSystemWindows="true"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewGenero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/hint_genero"
+                    android:textSize="18sp" />
+
+                <RadioGroup
+                    android:id="@+id/RadioGroupGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:gravity="center"
+                    android:hint="@string/hint_genero"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/RadioHombre"
+                        android:layout_width="102dp"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:hint="@string/hint_hombre"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="7dp" />
+
+                    <RadioButton
+                        android:id="@+id/RadioMujer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:hint="@string/hint_mujer"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="7dp" />
+
+                    <RadioButton
+                        android:id="@+id/RadioOtro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:hint="@string/hint_otro"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="7dp" />
+                </RadioGroup>
+            </android.support.v7.widget.LinearLayoutCompat>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/busqueda_list"
+        android:layout_marginTop="8dp">
+
+    </ListView>
+
+
+</LinearLayout>

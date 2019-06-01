@@ -20,9 +20,13 @@
         <activity android:name=".Login.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".activities.MainActivity"
+        <activity android:name=".main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".detalle_usuario.DetalleUsuarioActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".add_edit.AddEditUsuarioActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

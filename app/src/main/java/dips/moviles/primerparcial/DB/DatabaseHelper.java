@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Usuarios.db";
+    public static final String DATABASE_NAME = "Usuario.db";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,6 +25,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + UserEntry.ID + " TEXT NOT NULL,"
                 + UserEntry.NAME + " TEXT NOT NULL,"
+                + UserEntry.AGE + " TEXT NOT NULL,"
+                + UserEntry.GENDER + " TEXT NOT NULL,"
                 + UserEntry.EMAIL + " TEXT NOT NULL,"
                 + UserEntry.PASSWORD + " TEXT NOT NULL,"
                 + UserEntry.AVATAR_URI + " TEXT,"
@@ -38,8 +40,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void mockData(SQLiteDatabase sqLiteDatabase) {
-        mockUsuario(sqLiteDatabase, new Usuario("Carlos Perez", "carlos_perez@gmail.com",
+        mockUsuario(sqLiteDatabase, new Usuario("Carlos Perez","25","Hombre", "carlos_perez@gmail.com",
                 "","carlos_perez.jpg"));
+        mockUsuario(sqLiteDatabase, new Usuario("Julian Cardozo","23","Hombre", "julian.c@gmail.com",
+                "","julian_cardozo.jpg"));
+        mockUsuario(sqLiteDatabase, new Usuario("Luciana Ramirez","28","Mujer", "lu_ramirez@hotmail.com",
+                "","luciana_ramirez.jpg"));
+        mockUsuario(sqLiteDatabase, new Usuario("Marina Acosta","21","Otro", "marina_acosta@gmail.com",
+                "","marina_acosta.jpg"));
+        mockUsuario(sqLiteDatabase, new Usuario("Paula Genesini","25","Mujer", "p_genesini@hotmail.com",
+                "","paula_genesini.jpg"));
+        mockUsuario(sqLiteDatabase, new Usuario("Rodrigo Benavidez","30","Hombre", "rodri.b@gmail.com",
+                "","rodrigo_benavidez.jpg"));
+        mockUsuario(sqLiteDatabase, new Usuario("Sol Romero","22","Mujer", "sol_romero@gmail.com",
+                "","sol_romero.jpg"));
+        mockUsuario(sqLiteDatabase, new Usuario("Tomas Barros","22","Hombre", "barros.tomas@gmail.com",
+                "","tomas_barros.jpg"));
 
     }
 
@@ -55,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // No hay operaciones
     }
 
-    public long saveLawyer(Usuario user) {
+    public long saveUser(Usuario user) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         return sqLiteDatabase.insert(
@@ -65,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getAllLawyers() {
+    public Cursor getAllUser() {
         return getReadableDatabase()
                 .query(
                         UserEntry.TABLE_NAME,
@@ -77,31 +93,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         null);
     }
 
-    public Cursor getLawyerById(String lawyerId) {
+    public Cursor getUsersByGender(String UserGender) {
         Cursor c = getReadableDatabase().query(
                 UserEntry.TABLE_NAME,
                 null,
-                UserEntry.ID + " LIKE ?",
-                new String[]{lawyerId},
+                UserEntry.GENDER + " LIKE ?",
+                new String[]{UserGender},
                 null,
                 null,
                 null);
         return c;
     }
 
-    public int deleteLawyer(String lawyerId) {
+    public Cursor getUserById(String UserId) {
+        Cursor c = getReadableDatabase().query(
+                UserEntry.TABLE_NAME,
+                null,
+                UserEntry.ID + " LIKE ?",
+                new String[]{UserId},
+                null,
+                null,
+                null);
+        return c;
+    }
+
+    public int deleteUser(String UserId) {
         return getWritableDatabase().delete(
                 UserEntry.TABLE_NAME,
                 UserEntry.ID + " LIKE ?",
-                new String[]{lawyerId});
+                new String[]{UserId});
     }
 
-    public int updateLawyer(Usuario user, String lawyerId) {
+    public int updateUser(Usuario user, String UserId) {
         return getWritableDatabase().update(
                 UserEntry.TABLE_NAME,
                 user.toContentValues(),
                 UserEntry.ID + " LIKE ?",
-                new String[]{lawyerId}
+                new String[]{UserId}
         );
     }
 

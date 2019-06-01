@@ -14,7 +14,7 @@ import android.view.View;
 import dips.moviles.primerparcial.Helpers.InputValidation;
 import dips.moviles.primerparcial.DB.DatabaseHelper;
 import dips.moviles.primerparcial.R;
-import dips.moviles.primerparcial.activities.MainActivity;
+import dips.moviles.primerparcial.main.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private final AppCompatActivity activity = LoginActivity.this;

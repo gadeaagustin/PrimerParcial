@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import dips.moviles.primerparcial.R;
 import dips.moviles.primerparcial.Usuarios.Usuario;
@@ -24,14 +26,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private NestedScrollView nestedScrollView;
 
     private TextInputLayout textInputLayoutName;
+    private TextInputLayout textInputLayoutAge;
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
     private TextInputLayout textInputLayoutConfirmPassword;
 
     private TextInputEditText textInputEditTextName;
+    private TextInputEditText textInputEditTextAge;
+    private RadioGroup RadioGroupGender;
     private TextInputEditText textInputEditTextEmail;
     private TextInputEditText textInputEditTextPassword;
     private TextInputEditText textInputEditTextConfirmPassword;
+
+    private String genero ="Hombre";
 
     private AppCompatButton appCompatButtonRegister;
     private AppCompatTextView appCompatTextViewLoginLink;
@@ -57,14 +64,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
 
         textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutName);
+        textInputLayoutAge = (TextInputLayout) findViewById(R.id.textInputLayoutAge);
+        textInputLayoutEmail = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);
         textInputLayoutEmail = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);
         textInputLayoutPassword = (TextInputLayout) findViewById(R.id.textInputLayoutPassword);
         textInputLayoutConfirmPassword = (TextInputLayout) findViewById(R.id.textInputLayoutConfirmPassword);
 
         textInputEditTextName = (TextInputEditText) findViewById(R.id.textInputEditTextName);
+        textInputEditTextAge = (TextInputEditText) findViewById(R.id.textInputEditTextAge);
         textInputEditTextEmail = (TextInputEditText) findViewById(R.id.textInputEditTextEmail);
         textInputEditTextPassword = (TextInputEditText) findViewById(R.id.textInputEditTextPassword);
         textInputEditTextConfirmPassword = (TextInputEditText) findViewById(R.id.textInputEditTextConfirmPassword);
+
+        RadioGroupGender = (RadioGroup) findViewById(R.id.RadioGroupGender);
 
         appCompatButtonRegister = (AppCompatButton) findViewById(R.id.appCompatButtonRegister);
 
@@ -78,7 +90,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void initListeners() {
         appCompatButtonRegister.setOnClickListener(this);
         appCompatTextViewLoginLink.setOnClickListener(this);
-
+        RadioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i == R.id.RadioHombre) genero = "Hombre";
+                if(i == R.id.RadioMujer) genero = "Mujer";
+                if(i == R.id.RadioOtro) genero = "Otro";
+            }
+        });
     }
 
     /**
@@ -118,6 +137,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_message_name))) {
             return;
         }
+        if (!inputValidation.isInputEditTextFilled(textInputEditTextAge, textInputLayoutAge, getString(R.string.error_message_age))) {
+            return;
+        }
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
             return;
         }
@@ -135,15 +157,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (!databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim())) {
 
             user.setNombre(textInputEditTextName.getText().toString().trim());
+            user.setEdad(textInputEditTextAge.getText().toString().trim());
+            user.setGenero(genero);
             user.setEmail(textInputEditTextEmail.getText().toString().trim());
             user.setPassword(textInputEditTextPassword.getText().toString().trim());
-            user.setAvatarUri("carlos_perez.jpg");
-            databaseHelper.saveLawyer(user);
+            user.setAvatarUri("agustin_gadea.jpg");
+            databaseHelper.saveUser(user);
 
             // Snack Bar to show success message that record saved successfully
             Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG).show();
             emptyInputEditText();
-
+            finish();
 
         } else {
             // Snack Bar to show error message that record already exists
@@ -158,6 +182,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     private void emptyInputEditText() {
         textInputEditTextName.setText(null);
+        textInputEditTextAge.setText(null);
         textInputEditTextEmail.setText(null);
         textInputEditTextPassword.setText(null);
         textInputEditTextConfirmPassword.setText(null);
